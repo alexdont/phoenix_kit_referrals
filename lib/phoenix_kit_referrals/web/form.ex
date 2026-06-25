@@ -10,8 +10,8 @@ defmodule PhoenixKitReferrals.Web.Form do
 
   alias PhoenixKit.Settings
   alias PhoenixKit.Users.Auth
-  alias PhoenixKit.Utils.Routes
   alias PhoenixKitReferrals, as: Referrals
+  alias PhoenixKitReferrals.Paths
 
   def mount(params, _session, socket) do
     code_uuid = params["code_uuid"]
@@ -185,7 +185,7 @@ defmodule PhoenixKitReferrals.Web.Form do
   end
 
   def handle_event("cancel", _params, socket) do
-    {:noreply, push_navigate(socket, to: Routes.path("/admin/users/referral-codes"))}
+    {:noreply, push_navigate(socket, to: Paths.index())}
   end
 
   # Private functions
@@ -286,7 +286,7 @@ defmodule PhoenixKitReferrals.Web.Form do
       {:ok, _code} ->
         socket
         |> put_flash(:info, "Referral created successfully!")
-        |> push_navigate(to: Routes.path("/admin/users/referral-codes"))
+        |> push_navigate(to: Paths.index())
 
       {:error, changeset} ->
         socket
@@ -300,7 +300,7 @@ defmodule PhoenixKitReferrals.Web.Form do
       {:ok, _code} ->
         socket
         |> put_flash(:info, "Referral updated successfully!")
-        |> push_navigate(to: Routes.path("/admin/users/referral-codes"))
+        |> push_navigate(to: Paths.index())
 
       {:error, changeset} ->
         socket

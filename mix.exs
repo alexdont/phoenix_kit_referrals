@@ -35,9 +35,10 @@ defmodule PhoenixKitReferrals.MixProject do
     ]
   end
 
-  # test/support/ is compiled only in :test so DataCase and TestRepo
-  # don't leak into the published package.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  # Only lib/ is compiled (and published). The current suite is pure-unit and
+  # needs no shared support modules; add a `test/support` clause here if/when
+  # DB-backed integration tests arrive (see phoenix_kit_hello_world for the
+  # DataCase / TestRepo / LiveCase template).
   defp elixirc_paths(_), do: ["lib"]
 
   defp aliases do

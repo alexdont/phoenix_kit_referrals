@@ -33,6 +33,21 @@ defmodule PhoenixKitReferralsTest do
     end
   end
 
+  describe "version/0" do
+    test "matches the package version declared in mix.exs" do
+      vsn = :phoenix_kit_referrals |> Application.spec(:vsn) |> to_string()
+
+      assert PhoenixKitReferrals.version() == "0.1.0"
+      assert PhoenixKitReferrals.version() == vsn
+    end
+  end
+
+  describe "css_sources/0" do
+    test "lists this module's OTP app so Tailwind scans its templates" do
+      assert PhoenixKitReferrals.css_sources() == [:phoenix_kit_referrals]
+    end
+  end
+
   describe "permission_metadata/0" do
     test "returns a map with required fields, keyed by module_key" do
       assert %{key: key, label: label, icon: icon, description: desc} =

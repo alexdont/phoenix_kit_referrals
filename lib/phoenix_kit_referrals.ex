@@ -465,7 +465,9 @@ defmodule PhoenixKitReferrals do
   @doc """
   Checks if the referral codes system is enabled.
 
-  Returns true if the "referral_codes_enabled" setting is true.
+  Returns true if the "referral_codes_enabled" setting is true. Any error
+  (e.g. the database not being available yet at startup) is rescued and
+  treated as disabled, so callers never need to special-case boot ordering.
 
   ## Examples
 
@@ -474,6 +476,8 @@ defmodule PhoenixKitReferrals do
   """
   def enabled? do
     Settings.get_boolean_setting("referral_codes_enabled", false)
+  rescue
+    _ -> false
   end
 
   @doc """
@@ -636,6 +640,10 @@ defmodule PhoenixKitReferrals do
   def module_name, do: "Referrals"
 
   @impl PhoenixKit.Module
+  @doc "Module version, shown on the admin Modules page. Keep in sync with `mix.exs`."
+  def version, do: "0.1.0"
+
+  @impl PhoenixKit.Module
   def permission_metadata do
     %{
       key: "referrals",
@@ -681,6 +689,10 @@ defmodule PhoenixKitReferrals do
 
   @impl PhoenixKit.Module
   def route_module, do: PhoenixKitReferrals.Routes
+
+  @impl PhoenixKit.Module
+  @doc "OTP apps whose templates Tailwind should scan for CSS classes."
+  def css_sources, do: [:phoenix_kit_referrals]
 
   @doc """
   Gets codes that are currently valid for use.

@@ -8,6 +8,7 @@ defmodule PhoenixKitReferrals.Web.List do
 
   alias PhoenixKit.Settings
   alias PhoenixKitReferrals, as: Referrals
+  alias PhoenixKitReferrals.Paths
 
   def mount(_params, _session, socket) do
     # Get project title from settings
@@ -106,7 +107,7 @@ defmodule PhoenixKitReferrals.Web.List do
     ~H"""
     <div class="flex gap-2">
       <.link
-        navigate={PhoenixKit.Utils.Routes.path("/admin/users/referral-codes/edit/#{@code.uuid}")}
+        navigate={Paths.edit(@code.uuid)}
         class="btn btn-sm btn-outline"
       >
         <.icon name="hero-pencil" class="w-4 h-4" />
