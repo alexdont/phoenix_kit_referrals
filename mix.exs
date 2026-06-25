@@ -74,6 +74,10 @@ defmodule PhoenixKitReferrals.MixProject do
     [
       # PhoenixKit provides the Module behaviour, Settings API, and the users +
       # referral-code tables this module reads/writes.
+      #
+      # pk_dep/3 keeps a plain Hex pin by default (so published builds + CI are
+      # unchanged) but swaps in a local path dep when PHOENIX_KIT_PATH is set —
+      # see the helper above. This matches the sibling modules + the template.
       pk_dep(:phoenix_kit, "~> 1.7"),
 
       # LiveView is needed for the admin pages.
